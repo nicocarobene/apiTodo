@@ -4,7 +4,8 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
-mongoose_1.default.connect(process.env.MONGO_CONECT)
+const mongoConect_1 = require("./mongoConect");
+mongoose_1.default.connect(mongoConect_1.MONGO_CONECT)
     .then(() => {
     console.log('Database connected');
 }).catch(err => {

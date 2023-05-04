@@ -21,10 +21,14 @@ const jsonwebtoken_1 = __importDefault(require("jsonwebtoken"));
 const UseStractor_1 = require("../Middleware/UseStractor");
 const Todo_1 = __importDefault(require("../ModelDB/Todo"));
 const mongoose_1 = __importDefault(require("mongoose"));
+const mongoConect_1 = require("./mongoConect");
 require('./mongo');
 const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use((0, cors_1.default)());
+app.get('/', (req, resp) => {
+    resp.send('<h1>Hola</h1>');
+});
 app.post('/', (req, resp) => __awaiter(void 0, void 0, void 0, function* () {
     const { username, name, email, password } = req.body;
     if (!(username && name && password)) {
@@ -121,7 +125,7 @@ app.post('/login', (req, resp) => __awaiter(void 0, void 0, void 0, function* ()
         username: user.username,
         id: user._id
     };
-    const token = jsonwebtoken_1.default.sign(userForToken, process.env.SECRET_WORD, {
+    const token = jsonwebtoken_1.default.sign(userForToken, mongoConect_1.SECRET_WORD, {
         expiresIn: 60 * 60 * 24 * 7
     });
     const todos = user.todos.map((todo) => {

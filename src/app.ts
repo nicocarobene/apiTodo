@@ -8,12 +8,16 @@ import jwt from 'jsonwebtoken'
 import { UseStractor } from '../Middleware/UseStractor'
 import Todo from '../ModelDB/Todo'
 import mongoose from 'mongoose'
+import { SECRET_WORD } from './mongoConect'
 require('./mongo')
 
 const app = express()
 
 app.use(express.json())
 app.use(cors())
+app.get('/',(req,resp)=>{
+    resp.send('<h1>Hola</h1>')
+})
 
 app.post('/', async (req, resp) => {
   const { username, name, email, password } = req.body
@@ -125,7 +129,7 @@ app.post('/login', async (req, resp) => {
     id: user._id
   }
 
-  const token = jwt.sign(userForToken, process.env.SECRET_WORD as string, {
+  const token = jwt.sign(userForToken, SECRET_WORD as string, {
     expiresIn: 60 * 60 * 24 * 7
   })
   const todos = user.todos.map((todo: any) => {
