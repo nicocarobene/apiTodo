@@ -139,7 +139,4 @@ app.post('/login', (req, resp) => __awaiter(void 0, void 0, void 0, function* ()
         message: 'todo salio perfecto'
     });
 }));
-const PORT = 3000;
-app.listen(PORT, () => {
-    console.log(`🚀 Server listen PORT ${PORT}`);
-});
+exports.default = app;

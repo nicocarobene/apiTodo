@@ -144,8 +144,5 @@ app.post('/login', async (req, resp) => {
     message: 'todo salio perfecto'
   })
 })
-const PORT = 3000
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server listen PORT ${PORT}`)
-})
+export default app
