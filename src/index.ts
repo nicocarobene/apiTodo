@@ -125,7 +125,7 @@ app.post('/login', async (req, resp) => {
     id: user._id
   }
 
-  const token = jwt.sign(userForToken, process.env.SECRET_WORD, {
+  const token = jwt.sign(userForToken, process.env.SECRET_WORD as string, {
     expiresIn: 60 * 60 * 24 * 7
   })
   const todos = user.todos.map((todo: any) => {

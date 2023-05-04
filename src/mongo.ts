@@ -1,5 +1,5 @@
 import mongoose from 'mongoose'
-import { MONGO_CONECT } from './Mongo_DB'
+import { MONGO_CONECT } from './mongoConect'
 
 mongoose.connect(process.env.MONGO_CONECT as string)
   .then(() => {
