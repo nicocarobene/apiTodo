@@ -1,7 +1,7 @@
 import mongoose from 'mongoose'
 import { MONGO_CONECT } from './Mongo_DB'
 
-mongoose.connect(MONGO_CONECT)
+mongoose.connect(process.env.MONGO_CONECT as string)
   .then(() => {
     console.log('Database connected')
   }).catch(err => {

@@ -8,7 +8,6 @@ import jwt from 'jsonwebtoken'
 import { UseStractor } from '../Middleware/UseStractor'
 import Todo from '../ModelDB/Todo'
 import mongoose from 'mongoose'
-import { SECRET_WORD } from './Mongo_DB'
 require('./mongo')
 
 const app = express()
@@ -126,7 +125,7 @@ app.post('/login', async (req, resp) => {
     id: user._id
   }
 
-  const token = jwt.sign(userForToken, SECRET_WORD, {
+  const token = jwt.sign(userForToken, process.env.SECRET_WORD, {
     expiresIn: 60 * 60 * 24 * 7
   })
   const todos = user.todos.map((todo: any) => {
