@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import express from 'express'
 import { type User } from '../types'
 import UserModel from '../ModelDB/User'
@@ -8,8 +7,10 @@ import jwt from 'jsonwebtoken'
 import { UseStractor } from '../Middleware/UseStractor'
 import Todo from '../ModelDB/Todo'
 import mongoose from 'mongoose'
-import { SECRET_WORD } from './mongoConect'
+import dotenv from 'dotenv'
+dotenv.config()
 require('./mongo')
+
 
 const app = express()
 
@@ -19,6 +20,10 @@ app.get('/',(req,resp)=>{
     resp.send('<h1>Hola</h1>')
 })
 
+app.delete('/deleteCompleted', UseStractor,async(req,resp)=>{
+  const eliminate= await Todo.deleteMany({completed: true})
+  resp.status(200).json({eliminate})
+})
 app.post('/', async (req, resp) => {
   const { username, name, email, password } = req.body
 
@@ -129,7 +134,7 @@ app.post('/login', async (req, resp) => {
     id: user._id
   }
 
-  const token = jwt.sign(userForToken, SECRET_WORD as string, {
+  const token = jwt.sign(userForToken, process.env.SECRET_WORD as string, {
     expiresIn: 60 * 60 * 24 * 7
   })
   const todos = user.todos.map((todo: any) => {

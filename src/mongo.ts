@@ -1,7 +1,9 @@
 import mongoose from 'mongoose'
+import dotenv from 'dotenv'
+dotenv.config()
 import { MONGO_CONECT } from './mongoConect'
 
-mongoose.connect(MONGO_CONECT as string)
+mongoose.connect(process.env.MONGO_CONECT as string)
   .then(() => {
     console.log('Database connected')
   }).catch(err => {
